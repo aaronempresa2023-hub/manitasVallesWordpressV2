@@ -1,0 +1,203 @@
+SKILLS INSTALADAS EN ESTE PROYECTO
+===================================
+Generado: 2026-09-18
+Actualizado: 2026-09-21 (se agrego graphify, instalado globalmente)
+Ubicacion: .claude/skills/ (proyecto) salvo donde se indique lo contrario
+           (ver skill "graphify", instalado en el perfil global del usuario)
+
+Este listado documenta cada skill de Claude Code presente en el proyecto: nombre,
+origen (de donde proviene), version (cuando el skill la declara) y una breve
+descripcion funcional de lo que hace.
+
+
+1) animate
+-----------
+Origen:      Skill preinstalado de Claude Code (curado por Anthropic; conocimiento
+             basado en la filosofia de animacion de Emil Kowalski)
+Version:     No declarada
+Descripcion: Ayuda a construir una animacion desde cero, decidiendo en orden si
+             debe animarse, con que proposito, con que herramienta, que propiedades,
+             que curva/duracion usar, como se interrumpe y como termina. Implementa
+             el codigo final. Uso: pedir animar algo o crear una transicion.
+
+2) animate-expo
+-----------------
+Origen:      Skill preinstalado de Claude Code (Anthropic / filosofia de Emil Kowalski)
+Version:     No declarada
+Descripcion: Igual que "animate" pero para React Native y Expo: decide en que hilo
+             corre la animacion, spring vs timing, como se integra con gestos, y
+             como degrada en dispositivos reales. Implementa con Reanimated, Gesture
+             Handler, Expo Router y expo-haptics.
+
+3) animation-vocabulary
+-------------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic / filosofia de Emil Kowalski)
+Version:     No declarada
+Descripcion: Glosario inverso: convierte una descripcion vaga de un efecto de
+             animacion ("el rebote al abrir un popover") en su termino tecnico exacto
+             ("Pop in"). Util para nombrar un efecto, no para disenarlo o construirlo.
+
+4) apple-design
+-----------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; basado en charlas de
+             diseno WWDC de Apple, adaptado a web)
+Version:     No declarada
+Descripcion: Aplica el enfoque de diseno de Apple y su movimiento fisico/fluido a
+             interfaces web: gestos, animaciones spring, interacciones de
+             arrastre/swipe/hojas modales, materiales translucidos, tipografia y
+             los fundamentos de feedback y consistencia espacial al estilo Apple.
+
+5) ask-sonner
+---------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; conocimiento del propio
+             autor de Sonner, Emil Kowalski)
+Version:     No declarada
+Descripcion: Guia para la libreria de toasts "Sonner" en React: instalacion,
+             configuracion del Toaster, distintos tipos de toast (promesa, carga,
+             persistente), estilos, tema oscuro y solucion de problemas comunes.
+
+6) emil-design-eng
+---------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; filosofia de Emil Kowalski)
+Version:     No declarada
+Descripcion: Codifica la filosofia de Emil Kowalski sobre pulido de UI, diseno de
+             componentes, decisiones de animacion y los detalles invisibles que
+             hacen que un software "se sienta bien".
+
+7) find-animation-opportunities
+----------------------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; filosofia de Emil Kowalski)
+Version:     No declarada
+Descripcion: Solo lectura. Recorre un codebase o UI buscando lugares que deberian
+             animarse pero no lo hacen (y descarta los que no deberian). Propone
+             valores exactos de animacion pero no los implementa.
+
+8) improve-animations
+------------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; filosofia de Emil Kowalski)
+Version:     No declarada
+Descripcion: Solo lectura sobre el codigo fuente. Audita como "asesor senior de
+             motion" todo el codigo de animacion de un proyecto y produce un plan
+             de mejoras priorizado y autocontenido para que otros agentes lo ejecuten.
+
+9) mobile-native
+-------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; filosofia de Emil Kowalski)
+Version:     No declarada
+Descripcion: Ajustes de CSS y meta-tags para que una web se sienta nativa en
+             movil: estados hover pegajosos, el bug de 100vh, inputs que hacen
+             zoom, pull-to-refresh que secuestra el scroll, contenido bajo el
+             notch, carruseles, PWA y hojas inferiores (bottom sheets).
+
+10) pick-ui-library
+----------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; lista curada de Emil Kowalski)
+Version:     No declarada (invocacion manual unicamente, no se dispara solo)
+Descripcion: Recomienda la libreria correcta para una tarea frontend concreta
+             (inputs OTP, graficos, command menus, virtualizacion, drag & drop,
+             toasts, manejo de estado, estilos, etc.) de una lista opinada.
+
+11) prototype
+----------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; filosofia de Emil Kowalski)
+Version:     No declarada (invocacion manual unicamente, no se dispara solo)
+Descripcion: Construye varias versiones genuinamente distintas de una pieza de UI
+             descrita por el usuario, renderizadas detras de un selector visual
+             para compararlas en vivo y promover la que se sienta mejor.
+
+12) review-animations
+------------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic; filosofia de Emil Kowalski)
+Version:     No declarada (invocacion manual unicamente, no se dispara solo)
+Descripcion: Revisa codigo de animacion/motion existente contra un estandar de
+             calidad alto. Por defecto tiende a senalar problemas; la aprobacion
+             hay que ganarsela.
+
+13) write-swift
+------------------
+Origen:      Skill preinstalado de Claude Code (Anthropic)
+Version:     No declarada
+Descripcion: Guia para escribir Swift moderno correctamente: modelado con value
+             types, seguridad de concurrencia de Swift 6 (actors, task groups),
+             protocolos y genericos, diseno de APIs, rendimiento/ARC, Swift Testing
+             y macros. Util tambien para depurar errores de concurrencia o carreras
+             de datos (data races).
+
+14) taste-skill (design-taste-frontend)
+-------------------------------------------
+Origen:      https://github.com/leonxlnx/taste-skill
+Version:     No declarada en el SKILL.md (instalado desde el repo el 2026-09-18)
+Descripcion: Skill "anti-slop" para frontend en landing pages, portfolios y
+             rediseños. Lee el brief del usuario, infiere la direccion de diseno
+             correcta (tipo de pagina, vibe, audiencia, marca existente) y produce
+             interfaces que no se ven genericas/plantilla. Incluye disciplina
+             "anti-default" contra los tics tipicos de IA (gradientes purpura,
+             hero centrado sobre malla oscura, tres tarjetas iguales, etc.).
+
+15) impeccable
+-----------------
+Origen:      https://github.com/pbakaus/impeccable (instalado via "npx impeccable
+             install", flujo oficial del autor)
+Version:     Skill v4.3.1 / Motor (engine) v0.1.5 (binario windows-x64)
+Descripcion: Skill integral de diseno frontend con 24 comandos (init, shape,
+             critique, audit, polish, bolder, quieter, distill, harden, onboard,
+             animate, colorize, typeset, layout, delight, overdrive, clarify,
+             adapt, optimize, live, generate, document, extract, craft). Cubre
+             revision UX, jerarquia visual, accesibilidad, rendimiento, temas,
+             tipografia, color, motion, copy de UX y sistemas de diseno
+             reutilizables. Incluye:
+               - Motor CLI propio (binario descargado por plataforma, excluido
+                 del control de version via .gitignore).
+               - 4 subagentes: impeccable-asset-producer, impeccable-documenter,
+                 impeccable-finish-reviewer, impeccable-manual-edit-applier.
+               - Hooks automaticos (.claude/settings.local.json) que ejecutan un
+                 chequeo de diseno tras cada edicion de archivos de UI (Edit/Write)
+                 y una pasada de auditoria completa al finalizar la sesion (Stop).
+
+
+16) graphify
+--------------
+Origen:      https://github.com/Graphify-Labs/graphify (instalado via PyPI:
+             "pip install graphifyy" + "graphify install --platform claude",
+             flujo oficial del autor). Paquete PyPI: graphifyy (con doble "y").
+Version:     graphifyy 0.9.65
+Descripcion: Convierte cualquier carpeta (codigo, docs, esquemas SQL, configs,
+             PDFs, imagenes, video) en un grafo de conocimiento navegable, con
+             deteccion de comunidades, "god nodes" y trazabilidad de cada
+             relacion (sin vector store). Genera tres salidas en graphify-out/:
+             graph.html (visualizacion interactiva), graph.json (grafo
+             consultable, compatible GraphRAG) y GRAPH_REPORT.md (resumen en
+             lenguaje llano). Incluye subcomandos de consulta (query, path),
+             exportacion (--svg, --graphml, --neo4j, --falkordb, --mcp),
+             actualizacion incremental (--update, --watch) y hook de git
+             post-commit.
+IMPORTANTE:  A diferencia de los demas skills de este proyecto, el instalador
+             oficial NO lo instala en .claude/skills/ de este repositorio,
+             sino de forma GLOBAL en el perfil del usuario:
+               - Skill:     C:\Users\<usuario>\.claude\skills\graphify\SKILL.md
+               - Ademas crea/edita C:\Users\<usuario>\.claude\CLAUDE.md
+                 (global, afecta a TODOS los proyectos del usuario) agregando
+                 una instruccion de auto-invocacion: cuando el usuario escribe
+                 "/graphify", el asistente debe usar el skill "antes de hacer
+                 cualquier otra cosa".
+             Por lo tanto este skill esta disponible en todos los proyectos
+             del usuario, no solo en ProyectoBaseWeb, y no queda registrado
+             como carpeta dentro de .claude/skills/ de este repositorio.
+NOTA DE SEGURIDAD: La pagina del repo tambien ofrece un metodo de instalacion
+             manual alternativo que descarga el SKILL.md desde un repositorio
+             DISTINTO al oficial (safishamsi/graphify, rama v1) en vez de
+             Graphify-Labs/graphify, e instruye a editar CLAUDE.md global para
+             auto-invocacion. Ese metodo alternativo fue evaluado y DESCARTADO
+             por riesgo de cadena de suministro / posible inyeccion de
+             instrucciones; en su lugar se instalo unicamente via el paquete
+             oficial en PyPI (graphifyy) publicado por la organizacion
+             Graphify-Labs.
+
+
+NOTA SOBRE VERSIONES
+---------------------
+Los skills marcados como "preinstalados de Claude Code" (1-13) forman parte del
+entorno base de Claude Code y no declaran un numero de version propio en su
+SKILL.md; su contenido puede actualizarse junto con el propio Claude Code.
+Los skills instalados manualmente desde repositorios externos (taste-skill,
+impeccable) si tienen origen y version rastreables como se indica arriba.
