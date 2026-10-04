@@ -1,0 +1,92 @@
+# Entorno local de Manitas Vallés V2 en WordPress + Elementor Free.
+#   docker compose up -d         → WordPress en http://localhost:8082 (el aprovisionamiento tarda ~1 min)
+#   docker compose logs -f setup → sigue el aprovisionamiento
+# Puertos y credenciales se pueden cambiar con variables de entorno (ver .env.example).
+# Convive con manitasVallesWordpress (8081 / 8025) y manitasVallesV1 (8080): por eso usa 8082 / 8026.
+name: manitas-valles-wp-v2
+
+x-wp-env: &wp-env
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_NAME: wordpress
+  WORDPRESS_DB_USER: wordpress
+  WORDPRESS_DB_PASSWORD: wordpress
+  WORDPRESS_DEBUG: ${WP_DEBUG:-0}
+  # Correo de desarrollo: todo lo que envíe WordPress cae en Mailpit (http://localhost:8026).
+  WORDPRESS_CONFIG_EXTRA: |
+    define( 'MANITAS_SMTP_HOST', 'mailpit' );
+    define( 'MANITAS_SMTP_PORT', 1025 );
+
+x-wp-volumes: &wp-volumes
+  - wp:/var/www/html
+  - ./wp-content/themes/manitas-valles:/var/www/html/wp-content/themes/manitas-valles
+  - ./dev/mu-plugins:/var/www/html/wp-content/mu-plugins
+  - ./provision:/provision:ro
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 60 # el primer arranque en frío de MariaDB puede tardar
+      start_period: 30s
+
+  wordpress:
+    image: wordpress:6-php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment: *wp-env
+    ports:
+      - "${WP_PORT:-8082}:80"
+    volumes: *wp-volumes
+
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_PORT:-8026}:8025"
+
+  # Aprovisionamiento: instala WordPress en español, Elementor Free, Contact Form 7 y Flamingo, y construye las páginas.
+  # Es idempotente: se puede relanzar con `docker compose run --rm setup`.
+  setup:
+    image: wordpress:cli-php8.3
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    environment:
+      <<: *wp-env
+      HOME: /tmp
+      # Dirección con la que se accede a la web (WordPress redirige a ella): la IP de esta máquina en la LAN.
+      # Si cambia la IP o el puerto (WP_PORT), define WP_URL en .env.
+      WP_URL: ${WP_URL:-http://192.168.1.109:8082}
+      WP_ADMIN_USER: ${WP_ADMIN_USER:-admin}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD:-admin}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL:-admin@example.com}
+      ELEMENTOR_VERSION: ${ELEMENTOR_VERSION:-4.2.4}
+      CF7_VERSION: ${CF7_VERSION:-6.1.7}
+      FLAMINGO_VERSION: ${FLAMINGO_VERSION:-2.6.4}
+      # Captcha del formulario. Sin definir se usan las claves de prueba de Cloudflare (siempre aprueban).
+      # Las claves reales van en .env, que no se versiona.
+      TURNSTILE_SITEKEY: ${TURNSTILE_SITEKEY:-}
+      TURNSTILE_SECRET: ${TURNSTILE_SECRET:-}
+    volumes: *wp-volumes
+    working_dir: /var/www/html
+    entrypoint: ["sh", "/provision/provision.sh"]
+
+volumes:
+  db:
+  wp:

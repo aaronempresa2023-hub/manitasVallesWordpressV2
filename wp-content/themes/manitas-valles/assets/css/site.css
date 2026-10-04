@@ -1,0 +1,1120 @@
+/*
+ * Manitas Vallés (V2) · estilos del tema.
+ *
+ * La maquetación, los colores y los tamaños están en Elementor. Aquí va solo lo que Elementor Free no permite,
+ * aplicado por las clases CSS que llevan los elementos (Avanzado → Clases CSS): la cinta y sus marcas,
+ * las cifras condensadas, la palabra enorme del titular, las tablas de precios y los estados de los controles.
+ *
+ * Paleta A · Lima. Para cambiar de paleta, ver SPEC.md sección 9.
+ */
+
+@font-face {
+	font-family: "Bricolage Grotesque";
+	src: url("../fonts/bricolage-grotesque.woff2") format("woff2");
+	font-weight: 200 800;
+	font-stretch: 75% 100%;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--blanco: #ffffff;
+	--superficie: #eeede9;
+	--tinta: #121212;
+	--gris: #5e5e5e;
+	--sobre-negro: #c9c9c4;
+	--lima: #ccff00;
+	--linea: #d6d4ce;
+
+	--marca-paso: 10px; /* separación entre marcas de la cinta */
+	--marca-larga: 50px; /* una marca larga cada cinco */
+	--salida: cubic-bezier(0.16, 1, 0.3, 1);
+	--flexo-alto: 14px;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 32px;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	padding-top: var(--flexo-alto);
+	color: var(--tinta);
+	accent-color: var(--tinta);
+	caret-color: var(--tinta);
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+	background: var(--lima);
+	color: var(--tinta);
+}
+
+.sobre-negro ::selection {
+	background: var(--lima);
+	color: var(--tinta);
+}
+
+:focus-visible {
+	outline: 3px solid var(--tinta);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+.sobre-negro :focus-visible {
+	outline-color: var(--lima);
+}
+
+.elementor h1,
+.elementor h2,
+.elementor h3 {
+	text-wrap: balance;
+}
+
+.elementor p {
+	margin-block: 0;
+	text-wrap: pretty;
+}
+
+.medida p {
+	max-width: 62ch;
+}
+
+/* Saltar al contenido: visible solo con el foco del teclado. */
+.saltar {
+	position: absolute;
+	left: 16px;
+	top: -80px;
+	z-index: 100;
+	padding: 12px 20px;
+	border-radius: 999px;
+	background: var(--tinta);
+	color: var(--blanco);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.saltar:focus {
+	top: calc(var(--flexo-alto) + 8px);
+}
+
+/* Dato pendiente de completar: que nadie lo publique sin verlo. */
+.ph {
+	text-decoration: underline dashed 2px;
+	text-underline-offset: 4px;
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Cifras: la misma familia, condensada y de ancho constante, como los números de una cinta métrica.
+ * ---------------------------------------------------------------------------------------------- */
+.cifra {
+	font-stretch: 75%;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.01em;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Cinta: banda lima con marcas negras a paso fijo en el borde superior.
+ * ---------------------------------------------------------------------------------------------- */
+.cinta {
+	position: relative;
+	overflow: hidden;
+}
+
+.cinta::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 26px;
+	background-image:
+		linear-gradient(90deg, var(--tinta) 2px, transparent 2px),
+		linear-gradient(90deg, var(--tinta) 1px, transparent 1px);
+	background-size: var(--marca-larga) 26px, var(--marca-paso) 12px;
+	background-repeat: repeat-x;
+	background-position: 0 0;
+}
+
+/* Una lectura cuelga de su propia marca, que baja desde el borde de la cinta. */
+.cinta__lectura {
+	position: relative;
+	padding-left: clamp(8px, 1.4vw, 16px);
+}
+
+.cinta__lectura::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: -44px;
+	bottom: 0;
+	width: 2px;
+	background: var(--tinta);
+}
+
+.lectura {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin: 0;
+}
+
+.cinta .lectura .cifra {
+	font-size: clamp(1.625rem, 4.6vw, 3.5rem);
+}
+
+.lectura__trabajo {
+	font-size: clamp(0.8125rem, 1.5vw, 1.0625rem);
+	font-weight: 500;
+	line-height: 1.25;
+}
+
+/* Lectura en línea: etiqueta a la izquierda y cifra a la derecha, sobre un filete. */
+.lectura--linea {
+	flex-direction: row;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 16px;
+	padding-top: 16px;
+	border-top: 1px solid currentColor;
+}
+
+.lectura--linea .lectura__trabajo {
+	font-size: 1rem;
+}
+
+.lectura--linea .cifra {
+	font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Cabecera
+ * ---------------------------------------------------------------------------------------------- */
+.marca {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.marca svg {
+	height: 40px;
+	width: auto;
+}
+
+.menu {
+	display: flex;
+	gap: 30px;
+}
+
+.menu a {
+	color: var(--tinta);
+	font-weight: 500;
+	text-decoration: none;
+	padding-block: 8px;
+}
+
+.menu a:hover {
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 6px;
+}
+
+.idiomas {
+	display: inline-flex;
+	gap: 6px;
+	font-weight: 600;
+	font-size: 0.9375rem;
+	letter-spacing: 0.02em;
+}
+
+.idiomas [aria-current] {
+	padding: 6px 10px;
+	border-radius: 999px;
+	background: var(--superficie);
+}
+
+.idiomas a {
+	padding: 6px 10px;
+	border-radius: 999px;
+	color: var(--gris);
+	text-decoration: none;
+}
+
+.idiomas a:hover {
+	color: var(--tinta);
+	box-shadow: inset 0 0 0 1px var(--tinta);
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Portada
+ * ---------------------------------------------------------------------------------------------- */
+.portada__titular .elementor-heading-title {
+	max-width: 14em;
+}
+
+/* La palabra enorme: no encoge en el móvil. */
+.enorme {
+	display: block;
+	margin-block: 0.02em 0.06em;
+	margin-left: -0.03em;
+	color: var(--lima);
+	font-size: clamp(6.25rem, 26vw, 15rem);
+	font-stretch: 75%;
+	font-weight: 800;
+	line-height: 0.8;
+	letter-spacing: -0.035em;
+}
+
+.portada__texto p {
+	max-width: 46ch;
+}
+
+.cinta--portada::before {
+	animation: extender 1.1s var(--salida) 0.15s both;
+}
+
+@keyframes extender {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Botones en píldora. La especificidad es alta a propósito: Elementor fija el color de cada botón con
+ * cuatro clases y, sin esto, sus valores ganarían también al pasar el ratón.
+ * ---------------------------------------------------------------------------------------------- */
+.elementor .boton.boton .elementor-button.elementor-button {
+	transition: background-color 0.18s var(--salida), color 0.18s var(--salida), transform 0.18s var(--salida);
+}
+
+.elementor .boton.boton .elementor-button.elementor-button:active {
+	transform: scale(0.97);
+}
+
+.elementor .boton.boton--lima .elementor-button.elementor-button:hover,
+.elementor .boton.boton--lima .elementor-button.elementor-button:focus-visible {
+	background-color: var(--tinta);
+	color: var(--lima);
+}
+
+.elementor .sobre-negro .boton.boton--lima .elementor-button.elementor-button:hover,
+.elementor .sobre-negro .boton.boton--lima .elementor-button.elementor-button:focus-visible {
+	background-color: var(--blanco);
+	color: var(--tinta);
+}
+
+.elementor .boton.boton--negro .elementor-button.elementor-button:hover,
+.elementor .boton.boton--negro .elementor-button.elementor-button:focus-visible {
+	background-color: var(--lima);
+	color: var(--tinta);
+}
+
+.elementor .boton.boton--linea .elementor-button.elementor-button:hover,
+.elementor .boton.boton--linea .elementor-button.elementor-button:focus-visible {
+	background-color: var(--tinta);
+	color: var(--blanco);
+}
+
+.elementor .boton.boton--enlace .elementor-button.elementor-button {
+	text-underline-offset: 5px;
+	text-decoration-thickness: 2px;
+}
+
+.elementor .boton.boton--enlace .elementor-button.elementor-button:hover,
+.elementor .boton.boton--enlace .elementor-button.elementor-button:focus-visible {
+	color: var(--tinta);
+	text-decoration-color: var(--lima);
+}
+
+.elementor .sobre-negro .boton.boton--enlace .elementor-button.elementor-button:hover,
+.elementor .sobre-negro .boton.boton--enlace .elementor-button.elementor-button:focus-visible {
+	color: var(--lima);
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Servicios: cuatro bloques de distinto peso (en escritorio, 7 + 5 y 5 + 7 columnas).
+ * ---------------------------------------------------------------------------------------------- */
+.servicio__tareas p {
+	max-width: 34ch;
+}
+
+@media (min-width: 1025px) {
+	.servicio--fontaneria,
+	.servicio--reparaciones {
+		grid-column: span 7;
+	}
+
+	.servicio--electricidad,
+	.servicio--montaje {
+		grid-column: span 5;
+	}
+
+	.servicio {
+		min-height: 300px;
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Precios cerrados
+ * ---------------------------------------------------------------------------------------------- */
+.precios {
+	width: 100%;
+	margin: 0;
+	border-collapse: collapse;
+	border: 0;
+}
+
+.precios caption {
+	padding-bottom: 14px;
+	border-bottom: 2px solid var(--tinta);
+	color: var(--tinta);
+	font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	text-align: left;
+	caption-side: top;
+}
+
+/* La cabecera de columnas se mantiene para lectores de pantalla. */
+.precios thead {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.precios tbody tr {
+	border-bottom: 1px solid var(--linea);
+}
+
+.precios tbody th,
+.precios tbody td {
+	padding: 18px 0;
+	border: 0;
+	background: none;
+	vertical-align: baseline;
+}
+
+.precios tbody th {
+	padding-right: 20px;
+	font-size: 1.0625rem;
+	font-weight: 500;
+	line-height: 1.3;
+	text-align: left;
+}
+
+.precios small {
+	display: block;
+	margin-top: 4px;
+	color: var(--gris);
+	font-size: 0.9375rem;
+	font-weight: 400;
+}
+
+.precios td.cifra {
+	font-size: clamp(1.625rem, 3.2vw, 2.125rem);
+	text-align: right;
+}
+
+.precios tbody tr:hover td.cifra {
+	background: linear-gradient(var(--lima), var(--lima)) right 62% / 100% 0.5em no-repeat;
+}
+
+/* El hueco entre tablas va aquí: Elementor no acepta clamp() en el hueco de un contenedor flex. */
+.precios__grupo + .precios__grupo {
+	margin-top: clamp(40px, 5vw, 60px);
+}
+
+.condiciones {
+	display: grid;
+	gap: 16px;
+	margin: 0;
+}
+
+.condiciones dt {
+	font-weight: 600;
+}
+
+.condiciones dd {
+	margin: 2px 0 0;
+	color: var(--gris);
+}
+
+@media (min-width: 1025px) {
+	.precios__fuera {
+		position: sticky;
+		top: 40px;
+		align-self: start;
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Cómo trabajamos: tres marcas numeradas sobre la cinta.
+ * ---------------------------------------------------------------------------------------------- */
+.pasos {
+	display: grid;
+	gap: 28px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: paso;
+}
+
+.pasos li {
+	position: relative;
+	padding-left: clamp(12px, 1.6vw, 20px);
+	counter-increment: paso;
+}
+
+.pasos li::before {
+	content: counter(paso);
+	display: block;
+	margin-bottom: 10px;
+	font-size: clamp(3rem, 7vw, 5rem);
+	font-stretch: 75%;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+	line-height: 0.85;
+}
+
+.pasos li::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: -52px;
+	bottom: 0;
+	width: 2px;
+	background: var(--tinta);
+}
+
+.pasos h3 {
+	margin: 0 0 6px;
+	font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+}
+
+.pasos p {
+	max-width: 28ch;
+}
+
+@media (min-width: 768px) {
+	.pasos {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: clamp(20px, 4vw, 48px);
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Dónde trabajamos
+ * ---------------------------------------------------------------------------------------------- */
+.municipios {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.municipios li {
+	padding: 9px 16px;
+	border-radius: 999px;
+	box-shadow: inset 0 0 0 1px var(--linea);
+	font-size: 1rem;
+	line-height: 1.2;
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Cierre y pie
+ * ---------------------------------------------------------------------------------------------- */
+.cierre__titular .elementor-heading-title {
+	max-width: 11em;
+}
+
+.legales {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 24px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.pie__marca strong {
+	font-size: 1.25rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * La cinta de progreso: se extiende con el desplazamiento y su tope nombra la sección.
+ * ---------------------------------------------------------------------------------------------- */
+.flexo {
+	--p: 1;
+	position: fixed;
+	inset: 0 0 auto 0;
+	z-index: 50;
+	height: var(--flexo-alto);
+	background: var(--blanco);
+	pointer-events: none;
+}
+
+.flexo__hoja {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(90deg, var(--tinta) 2px, transparent 2px) 0 0 / var(--marca-larga) 100% repeat-x,
+		linear-gradient(90deg, var(--tinta) 1px, transparent 1px) 0 0 / var(--marca-paso) 6px repeat-x,
+		var(--lima);
+	clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0);
+}
+
+.flexo__tope {
+	position: absolute;
+	top: 0;
+	left: calc(var(--p) * 100%);
+	width: 5px;
+	height: calc(var(--flexo-alto) + 6px);
+	margin-left: -5px;
+	border-radius: 0 0 3px 3px;
+	background: var(--tinta);
+}
+
+.flexo__seccion {
+	position: absolute;
+	top: calc(100% + 6px);
+	right: 0;
+	padding: 5px 10px;
+	border-radius: 999px;
+	background: var(--tinta);
+	color: var(--blanco);
+	font-size: 0.75rem;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	opacity: 0;
+	transition: opacity 0.25s var(--salida);
+}
+
+.flexo__seccion.es-visible {
+	opacity: 1;
+}
+
+@media (max-width: 767px) {
+	.flexo__seccion {
+		display: none;
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Móvil
+ * ---------------------------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+	.cinta .lectura .cifra {
+		font-size: clamp(1.5rem, 7.4vw, 2rem);
+	}
+
+	.marca svg {
+		height: 32px;
+	}
+}
+
+@media (hover: none) {
+	.precios tbody tr:hover td.cifra {
+		background: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.cinta--portada::before {
+		animation: none;
+	}
+
+	.elementor .boton.boton .elementor-button.elementor-button,
+	.flexo__seccion {
+		transition: none;
+	}
+
+	.flexo__tope {
+		display: none;
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Formulario de presupuesto (Contact Form 7)
+ * ---------------------------------------------------------------------------------------------- */
+.solicitud {
+	max-width: 760px;
+}
+
+.solicitud .grupo {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 22px 20px;
+	margin: 0 0 clamp(32px, 5vw, 48px);
+	padding: 0;
+	border: 0;
+	min-width: 0;
+}
+
+.solicitud legend {
+	width: 100%;
+	margin-bottom: 22px;
+	padding: 0 0 12px;
+	border-bottom: 2px solid var(--tinta);
+	font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+}
+
+.solicitud .campo {
+	min-width: 0;
+}
+
+.solicitud label,
+.solicitud .campo__titulo {
+	display: block;
+	margin: 0 0 8px;
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.solicitud label small,
+.solicitud .campo__titulo small {
+	display: block;
+	margin-top: 2px;
+	color: var(--gris);
+	font-size: 0.9375rem;
+	font-weight: 400;
+}
+
+.solicitud .campo__titulo small {
+	display: inline;
+	margin-left: 6px;
+}
+
+.solicitud .campo__ayuda {
+	max-width: 60ch;
+	margin-bottom: 14px;
+	color: var(--gris);
+	font-size: 0.9375rem;
+}
+
+.solicitud .wpcf7-form-control-wrap {
+	display: block;
+}
+
+.solicitud input[type="text"],
+.solicitud input[type="tel"],
+.solicitud input[type="email"],
+.solicitud select,
+.solicitud textarea {
+	width: 100%;
+	min-height: 54px;
+	padding: 14px 16px;
+	border: 1px solid var(--tinta);
+	border-radius: 14px;
+	background-color: var(--blanco);
+	color: var(--tinta);
+	font: inherit;
+	font-size: 1.0625rem; /* 16 px o más: iOS no amplía la página al enfocar */
+	line-height: 1.4;
+	transition: box-shadow 0.18s var(--salida);
+}
+
+.solicitud textarea {
+	min-height: 150px;
+	resize: vertical;
+}
+
+.solicitud select {
+	appearance: none;
+	padding-right: 44px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23121212' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6l5 5 5-5'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 16px center;
+	background-size: 16px;
+}
+
+.solicitud ::placeholder {
+	color: #6b6b6b;
+	opacity: 1;
+}
+
+.solicitud input:hover,
+.solicitud select:hover,
+.solicitud textarea:hover {
+	box-shadow: inset 0 0 0 1px var(--tinta);
+}
+
+.solicitud input:focus-visible,
+.solicitud select:focus-visible,
+.solicitud textarea:focus-visible {
+	outline: 3px solid var(--tinta);
+	outline-offset: 2px;
+	border-radius: 14px;
+	box-shadow: 0 0 0 5px var(--lima);
+}
+
+/* Fotos: tres casillas, cada una con su selector de archivo. */
+.solicitud .fotos {
+	display: grid;
+	gap: 12px;
+}
+
+.solicitud .campo--foto {
+	padding: 14px 16px;
+	border-radius: 14px;
+	background: var(--superficie);
+}
+
+.solicitud .campo--foto label {
+	margin-bottom: 6px;
+	font-weight: 500;
+}
+
+.solicitud input[type="file"] {
+	max-width: 100%;
+	font: inherit;
+	font-size: 0.9375rem;
+}
+
+.solicitud input[type="file"]::file-selector-button {
+	margin-right: 12px;
+	padding: 9px 16px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--tinta);
+	color: var(--blanco);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.solicitud input[type="file"]::file-selector-button:hover {
+	background: var(--lima);
+	color: var(--tinta);
+}
+
+/* Consentimiento */
+.solicitud .consentimiento {
+	margin-bottom: 22px;
+}
+
+.solicitud .wpcf7-list-item {
+	margin: 0;
+}
+
+.solicitud .consentimiento label {
+	display: flex;
+	gap: 12px;
+	align-items: flex-start;
+	margin: 0;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+.solicitud input[type="checkbox"] {
+	flex: none;
+	width: 22px;
+	height: 22px;
+	margin: 1px 0 0;
+}
+
+.solicitud .wpcf7-turnstile {
+	margin-bottom: 22px;
+}
+
+/* Enviar: píldora negra; en lima al pasar el ratón. */
+.solicitud .wpcf7-submit {
+	min-height: 58px;
+	padding: 18px 34px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--tinta);
+	color: var(--blanco);
+	font: inherit;
+	font-size: 1.125rem;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	cursor: pointer;
+	transition: background-color 0.18s var(--salida), color 0.18s var(--salida), transform 0.18s var(--salida);
+}
+
+.solicitud .wpcf7-submit:hover,
+.solicitud .wpcf7-submit:focus-visible {
+	background: var(--lima);
+	color: var(--tinta);
+}
+
+.solicitud .wpcf7-submit:active {
+	transform: scale(0.97);
+}
+
+.solicitud.submitting .wpcf7-submit {
+	opacity: 0.6;
+	cursor: progress;
+}
+
+.solicitud .wpcf7-spinner {
+	display: none;
+}
+
+/* Errores y respuesta */
+.solicitud .wpcf7-not-valid {
+	border-color: #b3261e;
+	box-shadow: inset 0 0 0 1px #b3261e;
+}
+
+.solicitud .wpcf7-not-valid-tip {
+	display: block;
+	margin-top: 6px;
+	color: #b3261e;
+	font-size: 0.9375rem;
+	font-weight: 500;
+}
+
+.solicitud .wpcf7-response-output {
+	margin: 24px 0 0;
+	padding: 16px 20px;
+	border: 0;
+	border-radius: 14px;
+	background: var(--superficie);
+	font-weight: 500;
+}
+
+.solicitud.sent .wpcf7-response-output {
+	background: var(--lima);
+}
+
+.solicitud.invalid .wpcf7-response-output,
+.solicitud.failed .wpcf7-response-output,
+.solicitud.spam .wpcf7-response-output,
+.solicitud.unaccepted .wpcf7-response-output {
+	background: #fbe9e7;
+	color: #7a1a14;
+}
+
+.solicitud .screen-reader-response {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+}
+
+@media (min-width: 768px) {
+	.solicitud .grupo {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.solicitud legend,
+	.solicitud .campo:not(.campo--medio) {
+		grid-column: 1 / -1;
+	}
+
+	.solicitud .fotos {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Páginas legales: texto corrido.
+ * ---------------------------------------------------------------------------------------------- */
+/* El ancho de lectura va en los hijos: Elementor fija el ancho del propio widget. */
+.legal__texto :is(h2, p, ul, dl, .tabla-desplazable) {
+	max-width: 70ch;
+}
+
+.legal__texto code {
+	padding: 2px 6px;
+	border-radius: 6px;
+	background: var(--superficie);
+	color: var(--tinta);
+	font-family: inherit;
+	font-size: 0.875rem;
+	font-weight: 500;
+}
+
+.legal__texto h2 {
+	margin: clamp(32px, 5vw, 48px) 0 12px;
+	font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.15;
+}
+
+.legal__texto h2:first-child {
+	margin-top: 0;
+}
+
+.legal__texto p + p,
+.legal__texto ul {
+	margin-top: 12px;
+}
+
+.legal__texto ul {
+	padding-left: 1.2em;
+}
+
+.legal__texto li + li {
+	margin-top: 8px;
+}
+
+.legal__texto a,
+.pie a,
+.solicitud .consentimiento a,
+.aviso-cookies a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 4px;
+}
+
+.legal__texto a:hover,
+.pie a:hover,
+.solicitud .consentimiento a:hover {
+	text-decoration-thickness: 2px;
+	text-decoration-color: var(--tinta);
+}
+
+.ficha {
+	display: grid;
+	gap: 0;
+	margin: 18px 0 0;
+	padding: 6px 22px;
+	border-radius: 20px;
+	background: var(--superficie);
+}
+
+.ficha > div {
+	display: grid;
+	gap: 2px 20px;
+	padding: 14px 0;
+}
+
+.ficha > div + div {
+	border-top: 1px solid var(--linea);
+}
+
+.ficha dt {
+	color: var(--gris);
+	font-size: 0.9375rem;
+}
+
+.ficha dd {
+	margin: 0;
+	font-weight: 500;
+	overflow-wrap: anywhere;
+}
+
+.tabla-desplazable {
+	margin-top: 18px;
+	overflow-x: auto;
+}
+
+.tabla-legal {
+	width: 100%;
+	min-width: 560px;
+	margin: 0;
+	border-collapse: collapse;
+	font-size: 0.9375rem;
+}
+
+.tabla-legal th,
+.tabla-legal td {
+	padding: 12px 16px 12px 0;
+	border: 0;
+	border-bottom: 1px solid var(--linea);
+	background: none;
+	text-align: left;
+	vertical-align: top;
+}
+
+.tabla-legal thead th {
+	border-bottom: 2px solid var(--tinta);
+	font-weight: 600;
+}
+
+.legal__fecha {
+	margin-top: clamp(32px, 5vw, 48px);
+	color: var(--gris);
+	font-size: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+	.ficha > div {
+		grid-template-columns: 11em minmax(0, 1fr);
+	}
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Aviso de cookies
+ * ---------------------------------------------------------------------------------------------- */
+.aviso-cookies {
+	position: fixed;
+	left: 16px;
+	right: 16px;
+	bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+	z-index: 60;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px 20px;
+	max-width: 640px;
+	margin-inline: auto;
+	padding: 18px 22px;
+	border-radius: 22px;
+	background: var(--tinta);
+	color: var(--blanco);
+	font-size: 0.9375rem;
+	line-height: 1.45;
+}
+
+.aviso-cookies p {
+	flex: 1 1 280px;
+	margin: 0;
+}
+
+.aviso-cookies__cerrar {
+	flex: none;
+	min-height: 44px;
+	padding: 10px 22px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--lima);
+	color: var(--tinta);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.aviso-cookies__cerrar:hover {
+	background: var(--blanco);
+}
+
+.aviso-cookies :focus-visible {
+	outline-color: var(--lima);
+}
+
+.aviso-cookies[hidden] {
+	display: none;
+}

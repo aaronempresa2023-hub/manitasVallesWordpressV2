@@ -1,0 +1,99 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "core": {
+    "text-primary": {
+      "value": "#000000",
+      "role": "text-primary",
+      "name": "color-text-header"
+    },
+    "background": {
+      "value": "#ffffff",
+      "role": "background",
+      "name": "color-background-header"
+    },
+    "surface": {
+      "value": "#f5f5f5",
+      "role": "surface",
+      "name": "color-background-main-alternate"
+    },
+    "accent": {
+      "value": "#ccff00",
+      "role": "accent"
+    },
+    "text-muted": {
+      "value": "#5e5e5e",
+      "role": "text-muted"
+    },
+    "border": {
+      "value": "#282830",
+      "role": "border",
+      "name": "color-text-cards"
+    }
+  },
+  "status": {
+    "success": {
+      "value": "#51ce0f",
+      "role": "success"
+    },
+    "danger": {
+      "value": "#e56d6d",
+      "role": "danger"
+    }
+  },
+  "extended": {
+    "color-background-footer": {
+      "value": "#151515",
+      "role": "unknown",
+      "name": "color-background-footer"
+    },
+    "color-background-cards": {
+      "value": "#e7e5e2",
+      "role": "unknown",
+      "name": "color-background-cards"
+    },
+    "color-d3d3d3": {
+      "value": "#d3d3d3",
+      "role": "unknown"
+    },
+    "color-acacac": {
+      "value": "#acacac",
+      "role": "unknown"
+    },
+    "color-1d2020": {
+      "value": "#1d2020",
+      "role": "unknown"
+    },
+    "color-9e9a8f": {
+      "value": "#9e9a8f",
+      "role": "unknown"
+    },
+    "color-919191": {
+      "value": "#919191",
+      "role": "unknown"
+    },
+    "color-767676": {
+      "value": "#767676",
+      "role": "unknown"
+    },
+    "color-3b393d": {
+      "value": "#3b393d",
+      "role": "unknown"
+    },
+    "color-52c057": {
+      "value": "#52c057",
+      "role": "unknown"
+    },
+    "color-020024": {
+      "value": "#020024",
+      "role": "info"
+    },
+    "color-de1e1e": {
+      "value": "#de1e1e",
+      "role": "unknown"
+    }
+  },
+  "meta": {
+    "theme": "light",
+    "extracted": "2026-09-29"
+  }
+}

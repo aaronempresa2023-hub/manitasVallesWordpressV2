@@ -1,2 +1,14 @@
 # Downloaded per-platform binaries (re-fetched by installers, not portable across OS)
 .claude/skills/impeccable/scripts/bin/
+
+# Configuración local de Docker (la plantilla es .env.example)
+.env
+
+# Impeccable: capturas de revisión y caché del hook (el brief en .impeccable/surfaces/ sí se versiona)
+.impeccable/review/
+.impeccable/hook.cache.json
+
+# visune-design: fuentes comerciales (Saans, licencia privada) y archivos binarios grandes
+visune-design/fonts/
+visune-design/screens/
+visune-design/visune-design.skill
