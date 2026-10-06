@@ -3,6 +3,7 @@
 #   docker compose logs -f setup → sigue el aprovisionamiento
 # Puertos y credenciales se pueden cambiar con variables de entorno (ver .env.example).
 # Convive con manitasVallesWordpress (8081 / 8025) y manitasVallesV1 (8080): por eso usa 8082 / 8026.
+# MariaDB queda publicada en el puerto 3308 (DB_PORT) para clientes de base de datos.
 name: manitas-valles-wp-v2
 
 x-wp-env: &wp-env
@@ -31,6 +32,9 @@ services:
       MARIADB_USER: wordpress
       MARIADB_PASSWORD: wordpress
       MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    # Solo desarrollo: publica MariaDB en todas las interfaces para entrar con un cliente de base de datos.
+    ports:
+      - "${DB_PORT:-3308}:3306"
     volumes:
       - db:/var/lib/mysql
     healthcheck:

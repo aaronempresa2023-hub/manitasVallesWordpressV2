@@ -174,8 +174,8 @@ Descripcion: Convierte cualquier carpeta (codigo, docs, esquemas SQL, configs,
 IMPORTANTE:  A diferencia de los demas skills de este proyecto, el instalador
              oficial NO lo instala en .claude/skills/ de este repositorio,
              sino de forma GLOBAL en el perfil del usuario:
-               - Skill:     C:\Users\<usuario>\.claude\skills\graphify\SKILL.md
-               - Ademas crea/edita C:\Users\<usuario>\.claude\CLAUDE.md
+               - Skill:     /home/aaron/.claude/skills/graphify/SKILL.md
+               - Ademas crea/edita /home/aaron/.claude/CLAUDE.md
                  (global, afecta a TODOS los proyectos del usuario) agregando
                  una instruccion de auto-invocacion: cuando el usuario escribe
                  "/graphify", el asistente debe usar el skill "antes de hacer

@@ -2,11 +2,11 @@
 
 Estado del proyecto `manitasVallesWordpressV2`. Se lee al empezar cada sesión y se actualiza al terminar cada tarea importante (ver `CLAUDE.md`). Qué construir: ver `SPEC.md`.
 
-Última actualización: 2026-10-04
+Última actualización: 2026-10-06
 
 ## Estado actual
 
-Entorno WordPress local funcionando con Elementor Free. `SPEC.md`, el estudio de tarifas y `PRODUCT.md` están hechos. La paleta (A · Lima) y la dirección visual (Flexómetro) están elegidas, y **la portada y el formulario de presupuesto están construidos en castellano y catalán**. El captcha usa claves de prueba. Las páginas legales y el aviso de cookies están hechos, con varios datos marcados como pendientes. Faltan el logo y la revisión final del diseño con `DESIGN.md`.
+Entorno WordPress local funcionando con Elementor Free. `SPEC.md`, el estudio de tarifas y `PRODUCT.md` están hechos. La paleta (A · Lima) y la dirección visual (Flexómetro) están elegidas, y **la portada y el formulario de presupuesto están construidos en castellano y catalán**. El captcha usa **claves reales de Cloudflare Turnstile** (probado y funcionando). Las páginas legales y el aviso de cookies están hechos; los datos del titular están confirmados y corregidos. Faltan la revisión final del diseño con `DESIGN.md` y algunas decisiones de negocio y legales externas.
 
 ## Decisiones tomadas
 
@@ -45,6 +45,14 @@ Entorno WordPress local funcionando con Elementor Free. `SPEC.md`, el estudio de
 
 ## Hecho
 
+- 2026-10-06 · **Datos del titular confirmados**: nombre corregido a "Aaron Sánchez Garrido" (con tilde) y número de la calle a 39. Actualizado en `provision/lib/legales.php`.
+- 2026-10-06 · **Pruebas en móvil, tablet y escritorio** realizadas.
+- 2026-10-06 · **Sección de reseñas**: confirmado que debe estar oculta hasta disponer de reseñas reales. Ya estaba omitida del código.
+- 2026-10-06 · **`SkillsIncluidas.txt`** actualizado: eliminadas las rutas de Windows.
+- 2026-10-05 · **Cabeceras de seguridad** añadidas al tema (CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy). CSP ajustada para Elementor (necesita `unsafe-inline`) y Turnstile (`challenges.cloudflare.com`).
+- 2026-10-05 · **Favicon SVG** creado en `assets/img/favicon.svg` (icono del hexágono) y enlazado en `<head>`.
+- 2026-10-05 · **Claves reales de Cloudflare Turnstile** configuradas en `.env` y cargadas vía aprovisionamiento. Captcha probado end-to-end: el formulario valida correctamente y el envío llega a Mailpit.
+- 2026-10-05 · **MariaDB publicada en el puerto 3308** (`DB_PORT`) en todas las interfaces, para entrar con un cliente de base de datos. Solo desarrollo: las credenciales son las de por defecto (`wordpress` / `wordpress`).
 - 2026-10-04 · **Logo SVG integrado** en la cabecera (fichero `Logo/code.html`). Sustituye el signo de cinta anterior. Estilos de `.marca` actualizados en `site.css`.
 - 2026-10-04 · **Precios centralizados** en `provision/lib/precios.php` (`MV_P`). `textos.php` ya no tiene precios en duro: los dos idiomas usan las mismas constantes. Para cambiar un precio: editar solo `precios.php`. `SPEC.md` sección 6 actualizada.
 - 2026-10-04 · **Sección "Si tu trabajo no está en la lista" eliminada** de la página de precios. La columna lateral de condiciones generales (`precios__fuera`) desaparece de la maquetación.
@@ -78,30 +86,25 @@ Entorno WordPress local funcionando con Elementor Free. `SPEC.md`, el estudio de
 - Municipios: la lista de `SPEC.md` tiene 22 y creo que falta Rellinars (el Vallès Occidental tiene 23); verificar con Idescat.
 
 ### Decisiones técnicas
-- **Claves reales de Turnstile**: crearlas en la cuenta de Cloudflare del usuario cuando haya dominio y ponerlas en `.env`.
 - Plugin de multilenguaje para castellano y catalán (por ejemplo Polylang o TranslatePress).
-- Dominio y hosting.
+- ~~Dominio y hosting.~~ Resuelto por el usuario.
+- ~~Claves reales de Turnstile.~~ Configuradas el 2026-10-05.
 
 ### Negocio y legal (fuera del código, pero afectan a la web)
 - Consultar con un gestor: alta de autónomo (RETA y/o Hacienda 036/037), IVA aplicable (21% o 10%) y seguro de responsabilidad civil.
 - Confirmar que los precios publicados "con IVA" son coherentes con la forma de facturar.
-- Confirmar los datos del titular: grafía del nombre (ahora "Aaron Sanchez Garrido", sin tilde) y número de la calle (ahora "Calle Francia" sin número).
 - Datos que faltan en los textos legales (marcados en la web): dominio definitivo, proveedor de alojamiento y duración de las cookies de Turnstile.
 - Que un gestor o abogado revise los tres textos legales antes de publicar.
-- Decidir qué hacer con la sección de reseñas hasta tener opiniones reales.
 - Verificar la lista de municipios del Vallès Occidental contra el listado oficial (Idescat).
 
 ### Desarrollo
-- Logo (SVG)
 - Opiniones (cuando haya reseñas reales)
-- Cabeceras de seguridad (CSP, X-Content-Type-Options, Referrer-Policy)
-- Favicon e imagen para compartir (Open Graph)
+- Imagen Open Graph (1200×630 px): falta imagen real, el tag og:image ya está en el tema pero sin URL
 - Revisión de seguridad
 - Pruebas en móvil, tablet y escritorio
 
 ### Mantenimiento del repo
 - Crear `.env.example`: los permisos de Claude Code bloquean escribir ese fichero, hay que crearlo a mano (valores por defecto en `docker-compose.yml`).
-- Actualizar `SkillsIncluidas.txt`: aún dice binario `windows-x64` y rutas `C:\Users\...`.
 - Primer commit: nada de lo anterior está en git todavía.
 
 ## Cómo arrancar
@@ -116,3 +119,4 @@ docker compose logs -f setup   # aprovisionamiento
 | Web | http://192.168.1.109:8082 |
 | Administración | http://192.168.1.109:8082/wp-admin (`admin` / `admin`) |
 | Mailpit | http://192.168.1.109:8026 |
+| MariaDB | `192.168.1.109:3308`, base de datos `wordpress` (`wordpress` / `wordpress`) |

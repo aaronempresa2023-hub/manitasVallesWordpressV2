@@ -235,6 +235,50 @@ add_filter(
 );
 
 // -------------------------------------------------------------------------------------------------
+// Favicon
+// -------------------------------------------------------------------------------------------------
+add_action(
+	'wp_head',
+	function () {
+		$favicon = mv_asset( 'assets/img/favicon.svg' );
+		printf( '<link rel="icon" type="image/svg+xml" href="%s">' . "\n", esc_url( $favicon['url'] ) );
+	},
+	1
+);
+
+// -------------------------------------------------------------------------------------------------
+// Cabeceras de seguridad
+// -------------------------------------------------------------------------------------------------
+add_action(
+	'send_headers',
+	function () {
+		if ( is_admin() ) {
+			return;
+		}
+
+		// Fuentes de terceros: solo challenges.cloudflare.com (Turnstile).
+		// Elementor y WordPress usan estilos y scripts inline, por lo que 'unsafe-inline' es necesario.
+		$csp_partes = [
+			"default-src 'self'",
+			"script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+			"style-src 'self' 'unsafe-inline'",
+			"font-src 'self'",
+			"img-src 'self' data: https:",
+			"frame-src https://challenges.cloudflare.com",
+			"connect-src 'self'",
+			"object-src 'none'",
+			"base-uri 'self'",
+			"form-action 'self'",
+		];
+		header( 'Content-Security-Policy: ' . implode( '; ', $csp_partes ) );
+		header( 'X-Content-Type-Options: nosniff' );
+		header( 'X-Frame-Options: SAMEORIGIN' );
+		header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+		header( 'Permissions-Policy: geolocation=(), microphone=(), camera=()' );
+	}
+);
+
+// -------------------------------------------------------------------------------------------------
 // Aviso de cookies. La web solo usa lo estrictamente necesario, así que el aviso informa y no pide
 // consentimiento. Si algún día se añaden analíticas o terceros, tendrán que cargarse solo tras aceptar.
 // -------------------------------------------------------------------------------------------------

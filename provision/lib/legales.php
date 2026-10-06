@@ -9,9 +9,9 @@
  */
 
 const MV_TITULAR = [
-	'nombre'    => 'Aaron Sanchez Garrido',
+	'nombre'    => 'Aaron Sánchez Garrido',
 	'nif'       => '45640032M',
-	'domicilio' => 'Calle Francia, 08228 Terrassa (Barcelona)',
+	'domicilio' => 'Calle Francia, 39, 08228 Terrassa (Barcelona)',
 	'correo'    => 'aaron.empresa.2023@gmail.com',
 ];
 
